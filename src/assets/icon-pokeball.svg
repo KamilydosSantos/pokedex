@@ -1,0 +1,23 @@
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect y="5.38184" width="1.46789" height="5.23636" fill="black"/>
+<rect x="14.5321" y="5.38184" width="1.46789" height="5.23636" fill="black"/>
+<rect x="5.28442" y="1.45453" width="1.45455" height="5.28441" transform="rotate(-90 5.28442 1.45453)" fill="black"/>
+<rect x="5.28442" y="16" width="1.45455" height="5.28441" transform="rotate(-90 5.28442 16)" fill="black"/>
+<rect x="1.4679" y="2.90909" width="1.46789" height="2.47273" fill="black"/>
+<rect x="13.0642" y="2.90909" width="1.46789" height="2.47273" fill="black"/>
+<rect x="10.5688" y="10.6182" width="1.45455" height="2.49542" transform="rotate(-90 10.5688 10.6182)" fill="black"/>
+<rect x="2.93567" y="10.6182" width="1.45455" height="2.20184" transform="rotate(-90 2.93567 10.6182)" fill="black"/>
+<rect x="13.0642" y="10.6182" width="1.46789" height="2.47273" fill="black"/>
+<rect x="1.4679" y="10.6182" width="1.46789" height="2.47273" fill="black"/>
+<rect x="2.93567" y="2.90909" width="1.45455" height="2.34863" transform="rotate(-90 2.93567 2.90909)" fill="black"/>
+<rect x="2.93567" y="14.5455" width="1.45455" height="2.34863" transform="rotate(-90 2.93567 14.5455)" fill="black"/>
+<rect x="10.5688" y="2.90909" width="1.45455" height="2.49542" transform="rotate(-90 10.5688 2.90909)" fill="black"/>
+<rect x="6.60559" y="8.14545" width="1.45455" height="2.49542" transform="rotate(-90 6.60559 8.14545)" fill="black"/>
+<rect x="6.60559" y="12.0728" width="1.45455" height="2.49542" transform="rotate(-90 6.60559 12.0728)" fill="black"/>
+<rect x="9.10095" y="8.14545" width="1.46789" height="2.47273" fill="black"/>
+<rect x="5.1377" y="8.14545" width="1.46789" height="2.47273" fill="black"/>
+<rect x="1.4679" y="8.14545" width="1.46789" height="1.01818" fill="black"/>
+<rect x="13.0642" y="8.14545" width="1.46789" height="1.01818" fill="black"/>
+<rect x="10.5688" y="14.5455" width="1.45455" height="2.49542" transform="rotate(-90 10.5688 14.5455)" fill="black"/>
+<path d="M5.28442 2.90907V1.45453H10.5688V2.90907H13.0642V5.3818H14.5321V8.14544H13.0642V9.16362H10.5688V8.14544H9.10094V6.69089H6.60552V8.14544H5.13763V9.16362H2.93579V8.14544H1.4679V5.3818H2.93579V2.90907H5.28442Z" fill="#DE0D0D"/>
+</svg>

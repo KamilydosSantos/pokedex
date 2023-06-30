@@ -1,11 +1,20 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link>
-    </nav>
+    <TheHeader />
     <router-view/>
   </div>
 </template>
+
+<script>
+import TheHeader from "@/components/TheHeader.vue";
+
+export default {
+  name: "App",
+  components: {
+    TheHeader
+  }
+}
+</script>
 
 <style lang="scss">
 </style>
