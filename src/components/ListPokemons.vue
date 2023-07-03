@@ -10,31 +10,43 @@
 </template>
 
 <script>
-import axios from "axios"
+import axios from "axios";
+import eventBus from "@/eventBus";
 
 export default {
-    name: "ListPokemons",
-    data() {
-        return {
-            pokemons: null,
-        }
+  name: "ListPokemons",
+  data() {
+    return {
+      pokemons: null,
+      originalPokemons: null,
+    };
+  },
+  methods: {
+    getPokemons() {
+      axios.get("https://pokeapi.co/api/v2/pokemon/?limit=50")
+        .then(response => {
+          this.pokemons = response.data.results;
+          this.originalPokemons = [...response.data.results];
+        });
     },
-    methods: {
-        getPokemons() {
-            axios.get("https://pokeapi.co/api/v2/pokemon/?limit=50")
-            .then(response => {
-                this.pokemons = response.data.results;
-            });
-        },
-        getIdPokemon(pokemon) {
-            return pokemon.url.split("/")[6];
-        }
+    getIdPokemon(pokemon) {
+      return pokemon.url.split("/")[6];
     },
-    created() {
-        this.getPokemons();
-    }
-}
+    getSearchedPokemons(searchedTerm) {
+      if (this.originalPokemons) {
+        this.pokemons = this.originalPokemons.filter(pokemon => {
+          return pokemon.name.startsWith(searchedTerm);
+        });
+      }
+    },
+  },
+  created() {
+    this.getPokemons();
+    eventBus.$on("searchedPokemons", this.getSearchedPokemons);
+  },
+};
 </script>
+
 
 <style lang="scss" scoped>
 .pokemon {
