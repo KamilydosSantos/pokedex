@@ -19,6 +19,10 @@ body {
   min-height: 100vh;
 }
 
+li {
+  list-style: none;
+}
+
 #app {
   font-family: "Poppins";
   text-align: center;
