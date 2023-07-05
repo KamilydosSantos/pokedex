@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import { api } from "@/services.js";
 import eventBus from "@/eventBus";
 
 export default {
@@ -23,7 +23,7 @@ export default {
   },
   methods: {
     getPokemons() {
-      axios.get("https://pokeapi.co/api/v2/pokemon/?limit=50")
+      api.get("/pokemon/?limit=50")
         .then(response => {
           this.pokemons = response.data.results;
           this.originalPokemons = [...response.data.results];
