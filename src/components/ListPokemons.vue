@@ -82,6 +82,7 @@ export default {
         background: #f5f5f5;
         border-radius: 20px;
         width: 100%;
+        box-shadow: 2px 2px 4px #d3d3d3;
     }
     &__content {
         display: flex;

@@ -1,6 +1,6 @@
 <template>
     <div class="search">
-      <input class="search__input" type="text" placeholder="Search Pokémon" v-model="searchTerm" />
+      <input class="search__input" type="text" placeholder="Search for a Pokémon" v-model="searchTerm" />
       <input class="search__btn" type="submit" id="search-btn" value="search" @click="searchPokemons">
     </div>
 </template>
@@ -39,6 +39,7 @@ export default {
       border: none;
       outline: 0;
       border-radius: 20px;
+      box-shadow: 1px 1px 4px #d3d3d3;
     }
     &__btn {
       position: absolute;
