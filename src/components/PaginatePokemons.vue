@@ -1,8 +1,8 @@
 <template>
     <div>
-        <ul class="list-page">
-            <li v-for="(page, index) in totalPages" :key="page"  @click="changePage(index + 1)">
-                <router-link :to="{query: { ...$route.query, offset: page }}">{{ page }}</router-link>
+        <ul class="paginate">
+            <li class="paginate__page" v-for="page in visiblePages" :key="page"  @click="changePage(page)">
+                <router-link class="paginate__route" :to="{query: {offset: page}}">{{ page }}</router-link>
             </li>
         </ul>
     </div>
@@ -32,19 +32,61 @@ export default {
     },
     computed: {
         currentPage() {
-            return this.offsetPokemons ? this.offsetPokemons + 1 : 1;
+            // console.log(this.offsetPokemons ? this.offsetPokemons : 1);
+            return this.offsetPokemons ? this.offsetPokemons : 1;
         },
         totalPages() {
-            const total = Math.ceil(this.totalPokemons / this.pokemonsPerPage);
-            return (total !== Infinity) ? Array.from(Array(total).keys(), (i) => i + 1) : 1;
+            const total = this.totalPokemons / this.pokemonsPerPage;
+            return (total !== Infinity) ? Math.ceil(total) : 0;
+        },
+        visiblePages() {
+            const rangePages = 7;
+            const offsetPage = Math.floor(rangePages / 2);
+            const currentPage = this.currentPage;
+            const lastPage = this.totalPages;
+
+            let start = currentPage - offsetPage;
+            let end = currentPage + offsetPage;
+
+            if (start <= 0) {
+                start = 1;
+                end = Math.min(start + rangePages - 1, lastPage);
+            } else if (end > lastPage) {
+                end = lastPage;
+                start = Math.max(end - rangePages + 1, 1);
+            } else if (end - start < rangePages - 1) {
+                start = Math.max(end - rangePages + 1, 1);
+            }
+
+            const visiblePages = [];
+            for (let i = start; i <= end; i++) {
+                visiblePages.push(i);
+            }
+
+            return visiblePages;
         }
     }
 }
 </script>
 
 <style lang="scss" scoped>
-.list-page {
+.paginate {
     display: flex;
     gap: 2px;
+    align-items: center;
+    margin: 10px 0;
+    padding: 0;
+    &__route {
+        text-decoration: none;
+        font-weight: bold;
+        padding: 4px;
+        border-radius: 4px;
+        color: #000000;
+        &:hover,
+        &.router-link-exact-active {
+            background-color: #de0d0d;
+            color: #ffffff;
+        }
+    }
 }
 </style>

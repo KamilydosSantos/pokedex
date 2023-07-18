@@ -4,7 +4,6 @@
             <div class="pokemon__content">
                 <img :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${getIdPokemon(pokemon)}.png`" alt="">
                 <h3>{{ pokemon.name }}</h3>
-                <p>{{ getIdPokemon(pokemon) }}</p>
             </div>
         </div>
         <PaginatePokemons v-if="pokemons" class="paginate-pokemons" :totalPokemons="totalPokemons" :pokemonsPerPage="pokemonsPerPage" :offsetPokemons="offsetPokemons" @page-changed="updatePage"/>
@@ -27,6 +26,7 @@ export default {
       totalPokemons: 0,
       pokemonsPerPage: 26,
       offsetPokemons: 1,
+      defaultImageUrl: "/pokemon-not-found.png",
     };
   },
   methods: {
@@ -42,15 +42,20 @@ export default {
       return pokemon.url.split("/")[6];
     },
     getSearchedPokemons(searchedTerm) {
-      api.get(`/pokemon/?limit=${this.totalPokemons}`)
-      .then( response => {
-        this.pokemons = response.data.results.filter(pokemon => {
-          return pokemon.name.startsWith(searchedTerm);
+      if(searchedTerm != "") {
+        api.get(`/pokemon/?limit=${this.totalPokemons}`)
+        .then( response => {
+          this.pokemons = response.data.results.filter(pokemon => {
+            return pokemon.name.startsWith(searchedTerm);
+          });
         });
-      });
+      } else {
+        this.getPokemons();
+      }
     },
     updatePage(page) {
       this.offsetPokemons = page;
+      console.log(page);
     },
   },
   created() {
