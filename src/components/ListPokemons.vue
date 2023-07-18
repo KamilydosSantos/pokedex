@@ -1,10 +1,10 @@
 <template>
     <section class="pokemon">
         <div class="pokemon__card" v-for="(pokemon, index) in pokemons" :key="index">
-            <div class="pokemon__content">
+            <router-link :to="{name: 'pokemon', params: {id: getIdPokemon(pokemon)}}" class="pokemon__content">
                 <img :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${getIdPokemon(pokemon)}.png`" alt="">
                 <h3>{{ pokemon.name }}</h3>
-            </div>
+            </router-link>
         </div>
         <PaginatePokemons v-if="pokemons" class="paginate-pokemons" :totalPokemons="totalPokemons" :pokemonsPerPage="pokemonsPerPage" :offsetPokemons="offsetPokemons" @page-changed="updatePage"/>
     </section>
@@ -90,6 +90,8 @@ export default {
         align-items: center;
         justify-content: center;
         height: 100%;
+        text-decoration: none;
+        color: #000000;
     }
     .paginate-pokemons {
       grid-column: 1/3;
