@@ -55,7 +55,6 @@ export default {
     },
     updatePage(page) {
       this.offsetPokemons = page;
-      console.log(page);
     },
   },
   created() {

@@ -15,13 +15,17 @@
                         {{ pokemon.types[index - 1].type.name }}
                     </span>
                 </div>
-                <div v-if="pokemon.abilities" class="ability">
-                    <h2>Abilities</h2>
-                    <p>{{ pokemon.abilities.map(item => item.ability.name).join(', ') }}</p>
+                <div v-if="pokemon.abilities" class="pokemon__infos">
+                    <h2 class="pokemon__infos__name">Abilities</h2>
+                    <p class="pokemon__infos__info">{{ pokemon.abilities.map(item => item.ability.name).join(', ') }}</p>
                 </div>
-                <div v-if="habitat" class="habitat">
-                    <h2>Habitat</h2>
-                    <p>{{ habitat.split(' ').join(', ') }}</p>
+                <div v-if="habitat" class="pokemon__infos">
+                    <h2 class="pokemon__infos__name">Habitat</h2>
+                    <p class="pokemon__infos__info">{{ habitat }}</p>
+                </div>
+                <div v-if="generation" class="pokemon__infos">
+                    <h2 class="pokemon__infos__name">Generation</h2>
+                    <p class="pokemon__infos__info">{{ generation }}</p>
                 </div>
             </div>
         </div>
@@ -38,6 +42,7 @@ export default {
         return {
             pokemon: null,
             habitat: null,
+            generation: null,
         };
     },
     methods: {
@@ -47,10 +52,19 @@ export default {
                 this.pokemon = response.data;
             });
         },
-        async getHabitat() {
+        async getInfos() {
             try {
-                const habitatResponse = await api.get(this.pokemon.species.url);
-                this.habitat = habitatResponse.data.habitat.name;
+                const infosResponse = await api.get(this.pokemon.species.url);
+                if (infosResponse.data.habitat) {
+                    this.habitat = infosResponse.data.habitat.name;
+                } else {
+                    this.habitat = "Informação não disponível";
+                }
+                if (infosResponse.data.generation) {
+                    this.generation = infosResponse.data.generation.name;
+                } else {
+                    this.generation = "Informação não disponível";
+                }
             } catch (error) {
                 console.log(error);
             }
@@ -64,7 +78,7 @@ export default {
             immediate: true,
             handler() {
                 if (this.pokemon) {
-                    this.getHabitat();
+                    this.getInfos();
                 }
             }
         }
@@ -128,15 +142,17 @@ $pokemon-colors: (
         border-radius: 80px 80px 0 0;
         height: 100%;
         box-shadow: 2px 2px 4px #d3d3d3;
-        h1 {
-            margin: 0;
-            padding-top: 24px;
-        }
+        padding: 24px;
+    }
+    &__name {
+        padding: 20px;
+        margin: 0;
     }
     &__types {
         display: flex;
         gap: 24px;
-        padding: 24px;
+        max-width: 1200px;
+        margin: auto;
         justify-content: center;
         span {
             color: #ffffff;
@@ -147,7 +163,27 @@ $pokemon-colors: (
             font-weight: 700;
             text-align: center;
             padding: 6px;
-            max-width: 600px;
+        }
+    }
+    &__infos {
+        display: flex;
+        justify-content: space-between;
+        max-width: 1200px;
+        margin: 20px auto;
+        padding: 14px;
+        background-color: rgba(0, 0, 0, 0.03);
+        border-radius: 20px;
+        &__name,
+        &__info {
+            flex: 1;
+            font-size: 1rem;
+            margin: 0;
+        }
+        &__name {
+            text-align: left;
+        }
+        &__info {
+            text-align: right;
         }
     }
 }

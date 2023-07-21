@@ -32,7 +32,6 @@ export default {
     },
     computed: {
         currentPage() {
-            // console.log(this.offsetPokemons ? this.offsetPokemons : 1);
             return this.offsetPokemons ? this.offsetPokemons : 1;
         },
         totalPages() {
