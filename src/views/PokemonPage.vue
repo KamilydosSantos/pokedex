@@ -1,15 +1,19 @@
 <template>
     <section>
         <div v-if="pokemon" class="pokemon" :class="`background-${pokemon.types[0].type.name}`">
-            <div>
+            <div class="pokemon__top">
                 <router-link class="back" to="/"></router-link>
+                <!-- <h2 class="pokemon__id">Pokémon {{ id }}</h2> -->
             </div>
             <div class="pokemon__images">
                 <img class="pokemon__images__image" :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`" alt="" width="200px">
                 <img class="pokemon__images__floor" src="../assets/pokemon-floor.svg" alt="">
             </div>
             <div class="pokemon__content">
-                <h1 class="pokemon__name">{{ pokemon.name }}</h1>
+                <div class="pokemon__identification">
+                    <p class="pokemon__identification__id">{{ id }}</p>
+                    <h1 class="pokemon__identification__name">{{ pokemon.name }}</h1>
+                </div>
                 <div v-if="pokemon.types" class="pokemon__types">
                     <span v-for="index in pokemon.types.length" :key="index" :class="`pokemon__type-${pokemon.types[index - 1].type.name}`">
                         {{ pokemon.types[index - 1].type.name }}
@@ -27,6 +31,10 @@
                     <h2 class="pokemon__infos__name">Generation</h2>
                     <p class="pokemon__infos__info">{{ generation }}</p>
                 </div>
+                <div class="pokemon__infos__evolutions">
+                    <h2 class="pokemon__infos__name">Evolutions</h2>
+                    <img class="pokemon__infos__evolution" v-for="pokemon in evolutionImages" :key="pokemon" :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon}.png`" alt="" width="100px">
+                </div>
             </div>
         </div>
     </section>
@@ -43,6 +51,9 @@ export default {
             pokemon: null,
             habitat: null,
             generation: null,
+            evolutionChain: null,
+            evolutions: null,
+            evolutionImages: null,
         };
     },
     methods: {
@@ -65,9 +76,50 @@ export default {
                 } else {
                     this.generation = "Informação não disponível";
                 }
+                if (infosResponse.data.evolution_chain) {
+                    this.evolutionChain = infosResponse.data.evolution_chain.url.split("/")[6];
+                    this.getEvolutionChain();
+                } else {
+                    this.evolutionChain = "Informação não disponível";
+                }
             } catch (error) {
                 console.log(error);
             }
+        },
+        async getEvolutionChain() {
+            try {
+                const evolutionResponse = await api.get(`/evolution-chain/${this.evolutionChain}`);
+                const evolutionData = evolutionResponse.data.chain;
+                if (evolutionData) {
+                    this.evolutions = this.getAllEvolutions(evolutionData);
+                    this.evolutionImages = this.getAllEvolutionsImg(evolutionData);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        getAllEvolutions(evolution) {
+            const evolutionsList = [];
+            evolutionsList.push(evolution.species.name);
+
+            if (evolution.evolves_to.length > 0) {
+                for (const nextEvolution of evolution.evolves_to) {
+                    evolutionsList.push(...this.getAllEvolutions(nextEvolution));
+                }
+            }
+
+            return evolutionsList;
+        },
+        getAllEvolutionsImg(evolution) {
+            const evolutionsImg = [];
+            evolutionsImg.push(evolution.species.url.split("/")[6]);
+
+            if (evolution.evolves_to.length > 0) {
+                for (const nextEvolution of evolution.evolves_to) {
+                    evolutionsImg.push(...this.getAllEvolutionsImg(nextEvolution));
+                }
+            }
+            return evolutionsImg;
         },
     },
     created() {
@@ -111,12 +163,10 @@ $pokemon-colors: (
 );
 
 .back {
-    position: absolute;
-    top: 5px;
-    left: 5px;
     padding: 20px;
     background: url("../assets/back-button.svg") no-repeat center center;
     z-index: 2;
+    column: 1;
 }
 
 
@@ -124,6 +174,14 @@ $pokemon-colors: (
     display: grid;
     grid-template-rows: 50px 200px 1fr;
     height: 100vh;
+    &__top {
+        display: flex;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        left: 0;
+        z-index: 3;
+    }
     &__images {
         position: relative;
         display: flex;
@@ -144,9 +202,19 @@ $pokemon-colors: (
         box-shadow: 2px 2px 4px #d3d3d3;
         padding: 24px;
     }
-    &__name {
+    &__identification {
         padding: 20px;
-        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        &__name {
+            margin: 0;
+        }
+        &__id {
+            margin: 0;
+            color: rgba(0, 0, 0, .5);
+        }
     }
     &__types {
         display: flex;
@@ -184,6 +252,22 @@ $pokemon-colors: (
         }
         &__info {
             text-align: right;
+        }
+        &__evolutions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 24px;
+            h2 {
+                flex: 1 0 100%;
+                text-align: center;
+            }
+        }
+        &__evolution {
+            justify-self: center;
+            background: #f5f5f5;
+            border-radius: 20px;
         }
     }
 }
