@@ -86,7 +86,7 @@ export default {
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
-    margin: 24px auto 0 auto;
+    margin: 20px auto 0 auto;
     max-width: 1200px;
     &__name {
         flex: 1 0 100%;

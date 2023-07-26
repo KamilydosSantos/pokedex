@@ -67,8 +67,8 @@ $pokemon-colors: (
 );
 .pokemon {
     display: grid;
+    min-height: 100vh;
     grid-template-rows: 50px 200px 1fr;
-    height: 100vh;
 }
 @each $type, $color in $pokemon-colors {
   .background-#{$type} {

@@ -31,7 +31,6 @@ export default {
 .content {
     background-color: #ffffff;
     border-radius: 80px 80px 0 0;
-    height: 100%;
     box-shadow: 2px 2px 4px #d3d3d3;
     padding: 24px;
 }
