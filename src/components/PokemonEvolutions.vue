@@ -3,12 +3,13 @@
       <h2 class="evolutions__name">Evolutions</h2>
       <div class="evolutions__evolution" v-for="pokemon in evolutions" :key="pokemon.id">
         <img class="evolutions__evolution__img" :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`" alt="" width="80px">
-        <h3 class="evolutions__evolution__name">{{ pokemon.name }}</h3>
+        <h3 class="evolutions__evolution__name">{{ pokemon.name | capitalizeFirstLetter }}</h3>
       </div>
     </div>
 </template>
   
 <script>
+import { capitalizeFirstLetter } from "@/utils.js";
 import { api } from "@/services.js";
 
 export default {
@@ -22,6 +23,9 @@ export default {
             type: Number,
             required: true,
         }
+    },
+    filters: {
+      capitalizeFirstLetter,
     },
     data() {
         return {

@@ -3,7 +3,7 @@
         <div class="pokemon__card" v-for="(pokemon, index) in pokemons" :key="index">
             <router-link :to="{name: 'pokemon', params: {id: getIdPokemon(pokemon)}}" class="pokemon__content">
                 <img :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${getIdPokemon(pokemon)}.png`" alt="">
-                <h3>{{ pokemon.name }}</h3>
+                <h3>{{ pokemon.name | capitalizeFirstLetter }}</h3>
             </router-link>
         </div>
         <PaginatePokemons v-if="pokemons" class="paginate-pokemons" :totalPokemons="totalPokemons" :pokemonsPerPage="pokemonsPerPage" :offsetPokemons="offsetPokemons" @page-changed="updatePage"/>
@@ -12,6 +12,7 @@
 
 <script>
 import PaginatePokemons from "@/components/PaginatePokemons.vue";
+import { capitalizeFirstLetter } from "@/utils.js";
 import { api } from "@/services.js";
 import eventBus from "@/eventBus";
 
@@ -19,6 +20,9 @@ export default {
   name: "ListPokemons",
   components: {
     PaginatePokemons,
+  },
+  filters: {
+      capitalizeFirstLetter,
   },
   data() {
     return {

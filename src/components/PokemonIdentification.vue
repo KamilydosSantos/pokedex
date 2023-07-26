@@ -1,12 +1,15 @@
 <template>
     <div class="identification">
       <p class="identification__id">{{ id }}</p>
-      <h1 class="identification__name">{{ name }}</h1>
+      <h1 class="identification__name">{{ name | capitalizeFirstLetter }}</h1>
     </div>
   </template>
   
 <script>
+import { capitalizeFirstLetter } from "@/utils.js";
+
 export default {
+    name: "PokemonIdentification",
     props: {
         id: {
             type: Number,
@@ -16,6 +19,9 @@ export default {
             type: String,
             required: true,
         },
+    },
+    filters: {
+      capitalizeFirstLetter,
     },
 };
 </script>

@@ -29,7 +29,8 @@ export default {
     },
     methods: {
         getPokemon() {
-            api.get(`/pokemon/${this.id}`)
+            const lowercaseId = this.id.toLowerCase();
+            api.get(`/pokemon/${lowercaseId}`)
             .then(response => {
                 this.pokemon = response.data;
             });

@@ -1,12 +1,14 @@
 <template>
     <div class="types">
       <span v-for="pokemonType in types" :key="pokemonType" :class="`type-${pokemonType}`">
-        {{ pokemonType }}
+        {{ pokemonType | capitalizeFirstLetter }}
       </span>
     </div>
 </template>
   
 <script>
+import { capitalizeFirstLetter } from "@/utils.js";
+
 export default {
     name: "PokemonTypes",
     props: {
@@ -14,6 +16,9 @@ export default {
         type: Array,
         required: true,
       },
+    },
+    filters: {
+      capitalizeFirstLetter,
     },
 };
 </script>
@@ -45,6 +50,8 @@ $pokemon-colors: (
     display: flex;
     gap: 24px;
     justify-content: center;
+    max-width: 1200px;
+    margin: auto;
     span {
       color: #ffffff;
       height: 24px;
@@ -54,8 +61,6 @@ $pokemon-colors: (
       font-weight: 700;
       text-align: center;
       padding: 6px;
-      max-width: 1200px;
-      margin: auto;
     }
 }
 

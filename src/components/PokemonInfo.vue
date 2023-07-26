@@ -1,11 +1,13 @@
 <template>
     <div class="infos" v-if="info">
       <h2 class="infos__name">{{ title }}</h2>
-      <p class="infos__info">{{ info }}</p>
+      <p class="infos__info">{{ info | capitalizeFirstLetter }}</p>
     </div>
 </template>
   
 <script>
+import { capitalizeFirstLetter } from "@/utils.js";
+
 export default {
     props: {
       title: {
@@ -16,6 +18,9 @@ export default {
         type: String,
         required: true,
       },
+    },
+    filters: {
+      capitalizeFirstLetter,
     },
 };
 </script>
