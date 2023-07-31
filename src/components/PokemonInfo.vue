@@ -47,4 +47,11 @@ export default {
         text-align: right;
     }
 }
+
+@media (min-width: 1080px) {
+  .infos__name,
+  .infos__info {
+    font-size: 1.2rem;
+  }
+}
 </style>

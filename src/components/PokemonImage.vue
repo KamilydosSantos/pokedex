@@ -33,4 +33,17 @@ export default {
         bottom: 30px;
     }
 }
+
+@media (min-width: 1080px) {
+    .images {
+        margin: 40px;
+        &__image {
+            width: 350px;
+        }
+        &__floor {
+            width: 300px;
+            bottom: 45px;
+        }
+    }
+}
 </style>

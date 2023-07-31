@@ -41,4 +41,13 @@ export default {
         color: rgba(0, 0, 0, .5);
     }
 }
+
+@media (min-width: 1080px) {
+  .identification__name {
+    font-size: 2rem;
+  }
+  .identification__id {
+    font-size: 1.1rem;
+  }
+}
 </style>

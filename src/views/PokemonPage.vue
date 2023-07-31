@@ -2,8 +2,14 @@
     <section>
         <div v-if="pokemon" class="pokemon" :class="`background-${pokemon.types[0].type.name}`">
             <PokemonHeader />
-            <PokemonImage  :pokemonImage="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`" />
-            <PokemonContent :pokemon="pokemon" />
+            <div>
+                <PokemonImage class="image" :pokemonImage="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`" />
+            </div>
+            <div class="pokemon__content">
+                <PokemonIdentification class="identification" :id="pokemon.id" :name="pokemon.name" />
+                <PokemonTypes class="types" :types="pokemon.types.map(type => type.type.name)" />
+                <PokemonInfos class="infos" :pokemon="pokemon" />
+            </div>
         </div>
     </section>
 </template>
@@ -12,14 +18,18 @@
 import { api } from "@/services.js";
 import PokemonHeader from "@/components/PokemonHeader.vue";
 import PokemonImage from "@/components/PokemonImage.vue";
-import PokemonContent from "@/components/PokemonContent.vue";
+import PokemonIdentification from "@/components/PokemonIdentification.vue";
+import PokemonTypes from "@/components/PokemonTypes.vue";
+import PokemonInfos from "@/components/PokemonInfos.vue";
 
 export default {
     name: "PokemonPage",
     components: {
         PokemonHeader,
         PokemonImage,
-        PokemonContent,
+        PokemonIdentification,
+        PokemonTypes,
+        PokemonInfos,
     },
     props: ["id"],
     data() {
@@ -69,7 +79,29 @@ $pokemon-colors: (
     display: grid;
     min-height: 100vh;
     grid-template-rows: 50px 200px 1fr;
+    &__content {
+        background-color: #ffffff;
+        border-radius: 80px 80px 0 0;
+        box-shadow: 2px 2px 4px #d3d3d3;
+        padding: 24px;
+    }
 }
+
+@media (min-width: 1080px) {
+    .pokemon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &__content {
+            height: fit-content;
+            padding: 60px;
+            border-radius: 40px;
+            box-shadow: none;
+            margin: 0 40px;
+        }
+    }
+}
+
 @each $type, $color in $pokemon-colors {
   .background-#{$type} {
     background: linear-gradient(to bottom, rgba($color, 0.5), $color 40%);

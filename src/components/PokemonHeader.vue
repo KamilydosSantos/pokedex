@@ -20,4 +20,10 @@ export default {
     align-items: center;
     height: 50px;
 }
+
+@media (min-width: 1080px) {
+    .header {
+        display: none;
+    }
+}
 </style>

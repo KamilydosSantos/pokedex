@@ -106,4 +106,13 @@ export default {
         }
     }
 }
+
+@media (min-width: 1080px) {
+  .evolutions__name {
+    font-size: 1.2rem;
+  }
+  .evolutions__evolution__img {
+    width: 120px;
+  }
+}
 </style>
