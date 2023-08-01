@@ -8,7 +8,7 @@
             <div class="pokemon__content">
                 <PokemonIdentification class="identification" :id="pokemon.id" :name="pokemon.name" />
                 <PokemonTypes class="types" :types="pokemon.types.map(type => type.type.name)" />
-                <PokemonInfos class="infos" :pokemon="pokemon" />
+                <PokemonInfos class="infos" :pokemon="pokemon" :pokemonId="pokemon.id" />
             </div>
         </div>
     </section>
@@ -39,7 +39,8 @@ export default {
     },
     methods: {
         getPokemon() {
-            const lowercaseId = this.id.toLowerCase();
+            const stringId = this.id.toString();
+            const lowercaseId = stringId.toLowerCase();
             api.get(`/pokemon/${lowercaseId}`)
             .then(response => {
                 this.pokemon = response.data;
@@ -48,6 +49,14 @@ export default {
     },
     created() {
         this.getPokemon();
+    },
+    watch: {
+        id: {
+            immediate: true,
+            handler() {
+                this.getPokemon();
+            },
+        },
     },
 }
 </script>
@@ -98,6 +107,7 @@ $pokemon-colors: (
             border-radius: 40px;
             box-shadow: none;
             margin: 0 40px;
+            min-width: 400px;
         }
     }
 }

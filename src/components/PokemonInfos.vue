@@ -3,7 +3,7 @@
         <PokemonInfo v-if="pokemon.abilities" title="Abilities" :info="pokemon.abilities.map(item => item.ability.name).join(', ')" />
         <PokemonInfo v-if="habitat" title="Habitat" :info="habitat" />
         <PokemonInfo v-if="generation" title="Generation" :info="generation" />
-        <PokemonEvolutions :evolutionChain="evolutionChain" :pokemonId="pokemon.id" />
+        <PokemonEvolutions :evolutionChain="evolutionChain" :pokemonId="pokemonId" />
     </div>
 </template>
   
@@ -23,6 +23,10 @@ export default {
         type: Object,
         required: true,
         },
+        pokemonId: {
+            type: Number,
+            required: true,
+        }
     },
     data() {
         return {
@@ -53,6 +57,14 @@ export default {
     },
     created() {
         this.getInfos();
+    },
+    watch: {
+        pokemonId: {
+            immediate: true,
+            handler() {
+                this.getInfos();
+            },
+        },
     },
 };
 </script>

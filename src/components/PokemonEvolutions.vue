@@ -2,8 +2,10 @@
     <div class="evolutions" v-if="evolutions.length > 0">
       <h2 class="evolutions__name">Evolutions</h2>
       <div class="evolutions__evolution" v-for="pokemon in evolutions" :key="pokemon.id">
-        <img class="evolutions__evolution__img" :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`" alt="" width="80px">
-        <h3 class="evolutions__evolution__name">{{ pokemon.name | capitalizeFirstLetter }}</h3>
+        <router-link class="evolutions__evolution__router" :to="{name: 'pokemon', params: {id: pokemon.id}}">
+          <img class="evolutions__evolution__img" :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`" alt="" width="80px">
+          <h3 class="evolutions__evolution__name">{{ pokemon.name | capitalizeFirstLetter }}</h3>
+        </router-link>
       </div>
     </div>
 </template>
@@ -71,12 +73,19 @@ export default {
         this.getEvolutionChain();
     },
     watch: {
-    evolutionChain(newVal) {
-      if (newVal !== null) {
-        this.getEvolutionChain();
-      }
+        evolutionChain: {
+            immediate: true,
+            handler() {
+                this.getEvolutionChain();
+            },
+        },
+        pokemonId: {
+            immediate: true,
+            handler() {
+                this.getEvolutionChain();
+            },
+        },
     },
-  },
 };
 </script>
 
@@ -99,10 +108,15 @@ export default {
         background: #f5f5f5;
         border-radius: 20px;
         padding: 20px 30px;
+        color: #000000;
+        &__router {
+            text-decoration: none;
+        }
         &__name {
             font-size: 1rem;
             font-weight: 400;
             margin: 0;
+            color: #000000;
         }
     }
 }
