@@ -1,12 +1,12 @@
 <template>
     <div class="evolutions" v-if="evolutions.length > 0">
       <h2 class="evolutions__name">Evolutions</h2>
-      <div class="evolutions__evolution" v-for="pokemon in evolutions" :key="pokemon.id">
-        <router-link class="evolutions__evolution__router" :to="{name: 'pokemon', params: {id: pokemon.id}}">
+      <router-link class="evolutions__router" v-for="pokemon in evolutions" :key="pokemon.id" :to="{ name: 'pokemon', params: { id: pokemon.id } }">
+        <div class="evolutions__evolution">
           <img class="evolutions__evolution__img" :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`" alt="" width="80px">
           <h3 class="evolutions__evolution__name">{{ pokemon.name | capitalizeFirstLetter }}</h3>
-        </router-link>
-      </div>
+        </div>
+      </router-link>
     </div>
 </template>
   
@@ -97,6 +97,9 @@ export default {
     justify-content: center;
     margin: 20px auto 0 auto;
     max-width: 1200px;
+    &__router {
+        text-decoration: none;
+    }
     &__name {
         flex: 1 0 100%;
         text-align: center;
@@ -104,14 +107,12 @@ export default {
         margin: 0;
     }
     &__evolution {
+        box-shadow: 2px 2px 4px #d3d3d3;
         justify-self: center;
         background: #f5f5f5;
         border-radius: 20px;
         padding: 20px 30px;
         color: #000000;
-        &__router {
-            text-decoration: none;
-        }
         &__name {
             font-size: 1rem;
             font-weight: 400;

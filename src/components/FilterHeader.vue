@@ -2,15 +2,12 @@
     <header class="header">
         <img class="header__icon" src="@/assets/icon-pokeball.svg" alt="" width="16px" height="16px">
         <h1 class="header__title">Pokédex</h1>
-        <router-link to="/filter">
-            <img src="@/assets/filters-button.svg" alt="">
-        </router-link>
     </header>
 </template>
 
 <script>
 export default {
-    name: "TheHeader",
+    name: "FilterHeader",
 }
 </script>
 
