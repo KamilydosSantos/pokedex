@@ -1,22 +1,28 @@
 <template>
     <div class="filters">
         <FilterHeader />
-        <FilterPokemons title="Type" :filters="types" />
-        <FilterPokemons title="Generation" :filters="generation" />
-        <FilterPokemons title="Habitat" :filters="habitat" />
+        <div class="filters__content">
+            <h1 class="filters__title">Filters</h1>
+            <FilterPokemons title="Type" :filters="types" />
+            <FilterPokemons title="Generation" :filters="generation" />
+            <FilterPokemons title="Habitat" :filters="habitat" />
+        </div>
+        <FilterApply />
     </div>
 </template>
 
 <script>
 import FilterPokemons from '@/components/FilterPokemons.vue';
 import FilterHeader from '@/components/FilterHeader.vue';
+import FilterApply from '@/components/FilterApply.vue';
 import { api } from '@/services.js';
 
 export default {
     name: 'FiltersView',
     components: {
         FilterHeader,
-        FilterPokemons
+        FilterPokemons,
+        FilterApply
     },
     data() {
         return {
@@ -55,6 +61,21 @@ export default {
 
 <style lang="scss" scoped>
 .filters {
-    margin: 24px;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: 20px;
+    padding: 24px;
+    height: 100vh;
+    box-sizing: border-box;
+    &__content {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    &__title {
+        font-size: 1.2rem;
+        text-align: left;
+        margin: 0;
+    }
 }
 </style>
