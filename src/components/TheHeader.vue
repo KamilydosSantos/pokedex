@@ -4,9 +4,6 @@
             <img class="header__icon" src="@/assets/icon-pokeball.svg" alt="" width="16px" height="16px">
             <h1 class="header__title">Pokédex</h1>
         </div>
-        <router-link to="/filter">
-            <img src="@/assets/filters-button.svg" alt="">
-        </router-link>
     </header>
 </template>
 
